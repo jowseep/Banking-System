@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
-public class bankingSystem {
+class bankingSystem {
+
+    static String currency = "PHP";
 
    public static void main(String[] args) {
 
     String name;
-    String currency = "PHP";
     double balance;
     int selection;
     
@@ -48,18 +49,19 @@ public class bankingSystem {
             break; 
             case 4:
             balance = convertFunds(balance);
-                if(balance % 0.019 == 0) {
+            currency = theCurrency(balance);
+                /*if(balance % 0.019 == 0)
                     currency = "USD";
-                } else if(balance % 0.018 == 0) {
-                    currency = "EUR";
-                }
+                else if(balance % 0.018 == 0)
+                    currency = "EUR"; */
+        
             break;
             case 5:
             System.exit(0);
         }
         
+    } 
 
-    }
 }
 
 
@@ -76,31 +78,39 @@ public class bankingSystem {
         amountAdd = input.nextInt();
         
         if(amountAdd<=0 || amountAdd<500) {
-            System.out.println("You're broke. We only accept 500 and above. Please try again. ");
-            return initialAmount += amountAdd;
+            System.out.println("We only accept 500 and above. Please try again. ");
         } else {
             System.out.println(amountAdd + " is added to your account");
-            return initialAmount += amountAdd;
-        }
+            initialAmount += amountAdd;
+        } 
+        
+        return initialAmount;
    }
 
    public static double withdrawFunds(double initialAmount) {
+
         Scanner input = new Scanner(System.in);
+
         System.out.println("\n");
         System.out.print("Enter amount to withdraw: ");
         int withdraw = input.nextInt();
         
         if(withdraw<=0 || withdraw<500) {
-            System.out.println("You're broke. We only dispense 500 and above. Please try again. ");
+            System.out.println("We only dispense 500 and above. Please try again.");
+        } else if(withdraw>initialAmount) {
+            System.out.println("Desired amount should not exceed the current balance.");
         } else {
-            System.out.println(withdraw + " has been withdrawn successfully");
+            System.out.println(withdraw + " has been withdrawn successfully.");
+            initialAmount -= withdraw;
         }
-        return initialAmount -= withdraw;
+        return initialAmount;
 
    }
 
    public static double convertFunds(double balance) {
+
         Scanner input = new Scanner(System.in);
+
         System.out.println("\n");
         System.out.println("Select currency: ");
         System.out.println("1 - USD");
@@ -117,6 +127,17 @@ public class bankingSystem {
             System.out.println("Sucessfully converted to EUR. Total euros on the account is " + balance);
         }
         return balance;
+    }
+
+    public static String theCurrency(double balance) {
+
+        String currentCurrency = "PHP";
+        if(balance % 0.019 == 0) {
+            currentCurrency = "USD";
+        } else if(balance % 0.018 == 0) {
+            currentCurrency = "EUR";
+        } 
+        return currentCurrency;
     }
 
 }
