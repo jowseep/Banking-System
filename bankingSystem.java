@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 class bankingSystem {
 
-    static String currency = "PHP";
+    static String currency;
 
    public static void main(String[] args) {
 
@@ -49,12 +49,10 @@ class bankingSystem {
             break; 
             case 4:
             balance = convertFunds(balance);
-            currency = theCurrency(balance);
-                /*if(balance % 0.019 == 0)
+                if(balance % 0.019 == 0)
                     currency = "USD";
                 else if(balance % 0.018 == 0)
-                    currency = "EUR"; */
-        
+                    currency = "EUR";
             break;
             case 5:
             System.exit(0);
@@ -129,15 +127,14 @@ class bankingSystem {
         return balance;
     }
 
-    public static String theCurrency(double balance) {
-
-        String currentCurrency = "PHP";
+    /*public static String theCurrency(double balance, String currentCurrency) {
+        currentCurrency = "PHP";
         if(balance % 0.019 == 0) {
             currentCurrency = "USD";
         } else if(balance % 0.018 == 0) {
             currentCurrency = "EUR";
         } 
         return currentCurrency;
-    }
+    }*/
 
 }
