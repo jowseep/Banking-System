@@ -15,7 +15,7 @@ public class bankingSystem {
     System.out.print("Enter your name: ");
     name = input.nextLine();
     System.out.print("Enter initial balance: ");
-    balance = input.nextInt();
+    balance = input.nextDouble();
 
 
     while(true) {
@@ -47,7 +47,13 @@ public class bankingSystem {
             balance = withdrawFunds(balance);
             break; 
             case 4:
-            convertFunds(balance);
+            balance = convertFunds(balance);
+                if(balance % 0.019 == 0) {
+                    currency = "USD";
+                } else if(balance % 0.018 == 0) {
+                    currency = "EUR";
+                }
+            break;
             case 5:
             System.exit(0);
         }
@@ -59,7 +65,7 @@ public class bankingSystem {
 
    public static void displayInfo(String name, double balance, String currency) {
        System.out.println("\n");
-       System.out.print("Name: " + name + " | Balance: " + balance + " | Currency: " + currency);
+       System.out.print("Name: " + name + " | Balance: " + currency + balance );
    }
 
    public static double addFunds(double initialAmount) {
@@ -71,10 +77,11 @@ public class bankingSystem {
         
         if(amountAdd<=0 || amountAdd<500) {
             System.out.println("You're broke. We only accept 500 and above. Please try again. ");
+            return initialAmount += amountAdd;
         } else {
             System.out.println(amountAdd + " is added to your account");
+            return initialAmount += amountAdd;
         }
-        return initialAmount += amountAdd;
    }
 
    public static double withdrawFunds(double initialAmount) {
@@ -92,8 +99,7 @@ public class bankingSystem {
 
    }
 
-   public static void convertFunds(double balance) {
-        double newBalance;
+   public static double convertFunds(double balance) {
         Scanner input = new Scanner(System.in);
         System.out.println("\n");
         System.out.println("Select currency: ");
@@ -104,11 +110,13 @@ public class bankingSystem {
         int selection = input.nextInt();
 
         if(selection == 1) {
-            newBalance = balance * 0.018;
-            System.out.println("Sucessfully converted to USD. Total euros on the account is " + newBalance);
+            balance *= 0.019;
+            System.out.println("Sucessfully converted to USD. Total dollars on the account is " + balance);
         } else if (selection == 2) {
-            newBalance = balance * 0.018;
-            System.out.println("Sucessfully converted to EUR. Total euros on the account is " + newBalance);
+            balance *= 0.018;
+            System.out.println("Sucessfully converted to EUR. Total euros on the account is " + balance);
         }
+        return balance;
     }
+
 }
